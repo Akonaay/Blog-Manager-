@@ -4,18 +4,18 @@
       ><i class="fas fa-chevron-left"></i> Back</router-link
     >
     <h3>Blog Details</h3>
-    <div class="card">
+    <div class="card card-p2">
       <div class="row">
-        <div class="col-md-6 mt-2">
-          <div class="form-group col-md-6">
+        <div class="col-md-6 mt-2 ">
+          <div class="form-group ">
             <h6>
-              <strong>Blog</strong>
+              <strong>Blog #</strong>
             </h6>
             <p>{{ id }}</p>
           </div>
         </div>
         <div class="col-md-6 mt-2">
-          <div class="form-group col-md-6">
+          <div class="form-group">
             <h6>
               <strong>Author</strong>
             </h6>
@@ -25,7 +25,7 @@
       </div>
       <div class="row mt-3">
         <div class="col-md-6">
-          <div class="form-group col-md-6">
+          <div class="form-group">
             <h6>
               <strong>Title</strong>
             </h6>
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div class="form-group col-md-6">
+          <div class="form-group">
             <h6>
               <strong>Description</strong>
             </h6>
@@ -47,12 +47,12 @@
       </div>
       <div class="row mt-3">
         <div class="col-md">
-          <div class="form-group col-md-6">
+          <div class="form-group">
             <h6>
               <strong>Created</strong>
             </h6>
             <p>
-              {{ created_at.toDate() }}
+              {{ created_at }}
             </p>
           </div>
         </div>
@@ -63,7 +63,10 @@
       <button @click="deleteBlog" class="btn btn-sm">
         <i class="fas fa-trash-alt"></i>
       </button>
-      <router-link to="" class="ml-2 btn btn-sm" style="text-decoration: none;"
+      <router-link
+        :to="{ name: 'edit-blog', params: { blog_id: id } }"
+        class="ml-2 btn btn-sm"
+        style="text-decoration: none;"
         ><i class="far fa-edit"></i
       ></router-link>
     </div>
@@ -75,7 +78,6 @@ import db from "./firebaseInit";
 const blogsCollection = db.collection("blog");
 export default {
   name: "view-blog",
-  props: ["blog_id"],
   data() {
     return {
       id: null,
@@ -90,7 +92,7 @@ export default {
   methods: {
     async fetchCollection() {
       await blogsCollection
-        .where("blog_id", "==", this.blog_id)
+        .where("blog_id", "==", this.$route.params.blog_id)
         .get()
         .then((docs) => {
           docs.forEach((doc) => {
@@ -106,7 +108,7 @@ export default {
     async deleteBlog() {
       if (confirm("Are you sure?")) {
         await blogsCollection
-          .where("blog_id", "==", this.blog_id)
+          .where("blog_id", "==", this.$route.params.blog_id)
           .get()
           .then((docs) => {
             docs.forEach((doc) => {

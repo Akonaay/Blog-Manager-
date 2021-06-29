@@ -50,9 +50,13 @@
     /* text-decoration: none; */
 }
 
-.form-control {
-    width: 500px;
+.card-p2 {
+    padding: 10px !important;
 }
+
+/* .form-control {
+    width: 500px;
+} */
 
 /* textarea {
     width: 500px !important;

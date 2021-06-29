@@ -23,8 +23,8 @@ const routes = [
   {
     path: '/:blog_id',
     name: 'view-blog',
-    component: ViewBlog,
-    props: true
+    component: ViewBlog
+    // props: true
   },
   {
     path: '/about',

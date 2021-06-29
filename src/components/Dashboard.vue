@@ -44,7 +44,7 @@ export default {
   async created() {
     await blogsCollection.get().then((docs) => {
       docs.forEach((doc) => {
-        console.log(doc.data());
+        // console.log(doc.data());
         const data = {
           id: doc.id,
           blog_id: doc.data().blog_id,
