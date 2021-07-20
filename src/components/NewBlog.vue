@@ -59,6 +59,20 @@
               />
             </div>
           </div>
+          <div class="col-md-6 ">
+            <div class="form-group ml-3">
+              <h6><strong>Image</strong></h6>
+              <input
+                type="file"
+                ref="input1"
+                @change="previewImage"
+                class="form-control-file"
+                accept="image/*"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
           <div class="col-md-6 mt-4">
             <button type="submit" class="ml-6 btn btn-primary mb-2">
               Save
@@ -82,6 +96,7 @@ export default {
       description: null,
       author: null,
       created_at: null,
+      imageData: null,
     };
   },
   methods: {
@@ -96,6 +111,10 @@ export default {
         })
         .then(() => this.$router.push("/"))
         .catch((err) => console.log(err));
+    },
+    previewImage(e) {
+      // console.log(e.target.files[0]);
+      this.imageData = e.target.files[0];
     },
   },
 };

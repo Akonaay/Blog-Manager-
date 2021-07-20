@@ -19,27 +19,43 @@
                 ><i class="far fa-eye"></i
               ></router-link>
             </div>
-            <!-- <a class="card-link">By {{ blog.author }}</a> -->
-            <!-- <a href="#" class="card-link">{{ blog.created_at }}</a> -->
           </div>
         </div>
       </div>
     </div>
-    <router-link to="/new" class="float"
-      ><i class="fa fa-plus my-float"></i
-    ></router-link>
+
+    <router-link to="/new" class="float">
+      <i class="fa fa-plus my-float"></i>
+    </router-link>
   </div>
 </template>
 
 <script>
 import db from "./firebaseInit";
 const blogsCollection = db.collection("blog");
+// const ref = db.collection("random");
+const ref1 = db
+  .collection("random")
+  .doc("review")
+  .collection("random");
 export default {
   name: "dashboard",
   data() {
     return {
       blogs: [],
     };
+  },
+  methods: {
+    fetchRankings() {
+      ref1
+        // .where("author", "==", "author2")
+        .get()
+        .then((docs) => {
+          docs.forEach((doc) => {
+            console.log(doc.data());
+          });
+        });
+    },
   },
   async created() {
     await blogsCollection.get().then((docs) => {
@@ -58,6 +74,8 @@ export default {
         this.blogs.push(data);
       });
     });
+
+    this.fetchRankings();
   },
 };
 </script>
